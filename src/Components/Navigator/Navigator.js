@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 
 // Material imports
 import AppBar from '@mui/material/AppBar';
@@ -9,14 +9,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 
 export default function Navigator({isLoggedIn, setIsLoggedIn, props}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [toWelcome, setToWelcome] = useState(false);
+    // const [toWelcome, setToWelcome] = useState(false);
     // const [toSignUp, setToSignUp] = useState(false);
     // const [toLogin, setToLogin] = useState(false);
 
@@ -44,7 +44,7 @@ export default function Navigator({isLoggedIn, setIsLoggedIn, props}) {
     //     setToLogin(true);
     // }
 
-    if(toWelcome) return <Redirect to='/login'/>
+    // if(toWelcome) return <Redirect to='/login'/>
 
     // if(toSignUp) return <Redirect to='/sign-up'/>
 

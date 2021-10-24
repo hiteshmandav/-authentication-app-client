@@ -1,17 +1,20 @@
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material'
+import { Alert, Button, Chip, Divider, FormControl, IconButton, Input, InputAdornment, InputLabel, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { Box } from '@mui/system';
+import endpoints from '../../config/endpoints';
+import './Authentication.css';
 
-export default function Login({setIsLoggedIn}) {
+export default function Login() {
 
     const [toDashboard, setToDashboard] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState({isError: false, message: ''});
 
 
     const handleClickShowPassword = () => {
@@ -30,7 +33,8 @@ export default function Login({setIsLoggedIn}) {
     }
 
     const verifyUserLogin = async () => {
-        const response = await fetch(`http://localhost:5000/api/login`, {
+        setError({isError: false , message: ''});
+        const response = await fetch(`${endpoints.NODE_SERVER}${endpoints.LOGIN}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -42,41 +46,37 @@ export default function Login({setIsLoggedIn}) {
         });
         const data = await response.json();
         if(data.success){
+            localStorage.setItem('authToken', data.token);
             setToDashboard(true);
-            return setIsLoggedIn(true);
         } else {
             console.log(data.message)
+            setError({isError: true , message: data.error});
         }
     };
 
 
 
     if(toDashboard) {
-        return <Redirect to='/dashboard'/>
+        return <Redirect to='/'/>
     }
 
 
 
         return (
             <>
-            <Box
-                sx={{
-                    width: '100%',
-                    height: '90vh',
-                    display: 'grid',
-                    alignContent: 'center',
-                    justifyItems: 'center',
-                    backgroundColor: 'ghostwhite'
-                }}
+            <Box className="container"
                 >
                 <Box
                     component="login-form"
                     noValidate
                     autoComplete="off"
                     >
-                    <h1>Login</h1>
+                    <Typography variant="h4" component="div" className="header"
+                                >
+                            Login 
+                    </Typography>
                     <div>
-                    <FormControl variant="standard">
+                    <FormControl className = "inputField" variant="standard">
                         <InputLabel htmlFor="email">
                         Email
                         </InputLabel>
@@ -92,7 +92,7 @@ export default function Login({setIsLoggedIn}) {
                     </FormControl>
                     </div>
                     <div>
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                    <FormControl className = "inputField" variant="standard">
                         <InputLabel htmlFor="user-password">Password</InputLabel>
                             <Input
                                 id="user-password"
@@ -120,13 +120,36 @@ export default function Login({setIsLoggedIn}) {
                     </div>
                     <div>
 
-                    <Button 
-                        onClick={() => verifyUserLogin()} 
-                        variant="contained" color="primary">
-                        Login
-                    </Button>
+                        <Button 
+                            className = "button"
+                            onClick={() => verifyUserLogin()} 
+                            variant="contained" color="primary">
+                            Login
+                        </Button>
+                        {error.isError && <Alert severity="error">{error.message}</Alert>}
+                        <Typography variant="overline" component="div" 
+                                    className="header">
+                                Forgot Password? <Link to="/forgot-password">Reset Password</Link> 
+                        </Typography>
+
+                    </div>
+                    <Divider className= "divider"><Chip label="OR" /></Divider>
+                    <div>
+                        <Typography variant="h6" component="div" 
+                                className="header">
+                            Don't have a account 
+                       </Typography>
+                        <Link to="/sign-up">
+                            <Button
+                                className = "button"
+                                variant="text" color="primary">
+                                sign-up here
+                            </Button>
+                        </Link>
                     </div>
                 </Box>
+            
+            
             </Box>
             </>
         )

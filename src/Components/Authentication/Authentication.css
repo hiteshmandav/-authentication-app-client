@@ -1,0 +1,44 @@
+.header {
+    text-align: center;
+}
+
+.container{
+    width: 100%;
+    height: 90vh;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    background-color: ghostwhite
+}
+
+.inputField{
+    width: 25vw;
+    margin: 1rem !important;
+}
+
+.button {
+    width: 100%;
+    margin: 1rem 0rem !important;
+}
+
+.divider{
+    margin: 2rem 0rem !important;
+}
+
+.mandatory{
+    color: red;
+}
+
+.hint{
+    font-size  : 10px !important;
+    margin-left: 1rem !important;
+    color      : gray;
+}
+
+.content{
+    margin: 2rem !important;
+}
+
+.note{
+    margin-left: 2rem !important;
+}

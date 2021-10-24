@@ -2,14 +2,14 @@ import { Button } from '@mui/material'
 import React, { useState } from 'react'
 import { Redirect } from 'react-router';
 
-export default function Dashboard ({setIsLoggedIn}) {
+export default function Dashboard () {
         const [toLogin, setToLogin] = useState(false);
 
     // const history = useHistory();
 
     const logoutUser = () => {
         // history.push(`/Login`)
-        setIsLoggedIn(false);
+        localStorage.removeItem('authToken');
         setToLogin(true);
     }
 

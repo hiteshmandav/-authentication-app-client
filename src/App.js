@@ -9,8 +9,10 @@ import Signup from './Components/Authentication/Signup';
 import PrivateRoute from './PrivateRoute';
 import VerifyEmail from './Components/Authentication/VerifyEmail';
 import ForgotPassword from './Components/Authentication/ForgotPassword';
-
-
+import ResetNewPassword from './Components/Authentication/ResetNewPassword';
+import VerifyAccount from './Components/Authentication/VerifyAccount';
+import Actions from './Components/Dashboard/Actions';
+import NotFound from './Components/NotFound';
 
 function App() {
 
@@ -21,11 +23,15 @@ function App() {
     <BrowserRouter>
       {/* <Navigator/> */}
       <Switch>
-        <PrivateRoute exact path="/" component={Dashboard} />
+        <PrivateRoute exact path="/" component={Actions} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/verify-email" component={VerifyEmail} />
         <Route path="/login" exact component={Login}/>
-        <Route path="/forgot-password" exact component={ForgotPassword}/>
         <Route path="/sign-up" exact component={Signup}/>
+        <Route path="/forgot-password" exact component={ForgotPassword}/>
+        <Route path="/password-reset/:resetId" exact component={ResetNewPassword}/>
+        <Route path="/verify-account/:verifyId" exact component={VerifyAccount}/>
+        <Route path="*"  component={NotFound}/>
       </Switch>
     </BrowserRouter>
     </>

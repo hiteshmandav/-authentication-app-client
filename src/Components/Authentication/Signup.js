@@ -162,7 +162,7 @@ export default function Signup() {
                             <InputLabel htmlFor="confirm-password">Confirm Password <span className="mandatory">*</span></InputLabel>
                                 <Input
                                     id="user-confirm-password"
-                                    type={showPassword ? 'text' : 'password'}
+                                    type='password'
                                     value={confirmPassword}
                                     onChange={handleConfirmPasswordUpdate()}
                                     // endAdornment={
